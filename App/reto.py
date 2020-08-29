@@ -95,35 +95,33 @@ def loadCSVFile (file, cmpfunction):
 
 
 def loadMovies ():
-    lst = loadCSVFile("Data/theMoviesdb/movies-small.csv",compareRecordIds) 
+    lst = loadCSVFile("themoviesdb/MoviesCastingRaw-small.csv",compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
 
 def loadDetails():
-    lst = loadCSVFile("Data/themoviesdb/SmallMoviesDetailsCleaned.csv",compareRecordIds) 
+    lst = loadCSVFile("themoviesdb/SmallMoviesDetailsCleaned.csv",compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
 
 def RankingGenero (genero, column, details,casting, compfunction, elements):
     #Se crea una lista por género
     t1_start = process_time() #tiempo inicial
-    lista_genero=lt.newList("ARRAY_LIST", cmpfunction)
-    iterator_casting=it.newIterator(casting)
+    lista_genero=lt.newList("ARRAY_LIST")
     iterator_details=it.newIterator(details)
-    while it.hasNext(iterator_casting):
-        element_casting=it.next(iterator_casting)
-        element_details=it.next(iterator_casting)
-        if genero.lower() in element_casting.get("genres").lower():
+    while it.hasNext(iterator_details):
+        element_details=it.next(iterator_details)
+        if genero.lower() in element_details.get("genres").lower() :
             lt.addLast(lista_genero,element_details)
     #Se ordena la lista por género
     ss.shellSort(lista_genero,compfunction,column)
     #Se hace el ranking
-    ranking=lt.newList("ARRAY_LIST", cmpfunction)
+    ranking={}
     iterator_listag=it.newIterator(lista_genero)
     x=1
     while it.hasNext(iterator_listag) and x<=elements:
         element=it.next(iterator_listag)
-        ranking.append(element.get("original_title"))
+        ranking[element.get("original_title")]= element.get(column)
         x+=1
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
@@ -146,7 +144,7 @@ def main():
         if len(inputs)>0:
 
             if int(inputs[0])==1: #opcion 1
-                casting = loadMovies()
+                casting =loadMovies()
                 details=loadDetails()
             elif int(inputs[0])==2: #opcion 2
                 pass
@@ -164,10 +162,9 @@ def main():
                 if details==None or details['size']==0: #obtener la longitud de la lista
                     print("La lista esta vacía")
                 else:
-                    genero=input("Dígite el genero por el que desee hacer el ranking: ")
+                    genero=input("Dígite el género por el que desee hacer el ranking: ")
                     printMenuRanking()
                     tiporanking= int(input("Dígite su opción: "))
-                    elements=int(input("Dígite el número de películas que desea ver en el ranking: "))
                     if tiporanking==1:
                         column="vote_average"
                         cmpfunction=greater_function
@@ -184,8 +181,16 @@ def main():
                         column="vote_count"
                         cmpfunction=less_function
                         tipo="peores"
+                    else:
+                        print("Número icorrecto, vuélvalo a intentar")
+                        sys.exit(0)
+                    elements=int(input("Dígite el número de películas que desea ver en el ranking: "))
+                    if tiporanking==1 or tiporanking==2:
+                        tipocalificacion= " con su respectiva calificación "
+                    else:
+                        tipocalificacion= " con su respectivo número de votos "
                     ranking_genero=RankingGenero(genero,column,details,casting,cmpfunction,elements)
-                    print("Las "+str(elements)+ tipo + "películas de" + genero + "son: \n" + str(ranking))
+                    print("Las "+str(elements)+" "+ tipo + " películas de " + genero + tipocalificacion+ "son: \n" + str(ranking_genero))
 
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
