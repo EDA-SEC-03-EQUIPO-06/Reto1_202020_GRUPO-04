@@ -309,7 +309,7 @@ def main():
 
             elif int(inputs[0])==4: #opcion 4
                 actor = input("Actor a consultar: ")
-                r = r4(actor, casting , details)
+                r = conocerActor(actor, casting , details)
                 print( "El actor " + actor + " tiene " + str(r) )
 
             elif int(inputs[0])==5: #opcion 5
