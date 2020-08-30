@@ -319,7 +319,7 @@ def main():
 
             elif int(inputs[0])==5: #opcion 5
                 criteria = input("¿Cuál género quieres buscar?: ")
-                a = peliculasporgenero(details,criteria)
+                a = peliculasPorGenero(details,criteria)
                 print("Hay ", a[1], " películas del genero ", criteria)
                 print("El promedio de cantidad de votos para este genero es de ", a[2])
                 print("Estas son algunas de las películas del género:")
