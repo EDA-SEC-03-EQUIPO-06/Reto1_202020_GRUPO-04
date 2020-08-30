@@ -33,7 +33,7 @@ import csv
 from ADT import list as lt
 from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
-from Sorting import shellsort as ss
+
 
 from time import process_time 
 
@@ -143,7 +143,7 @@ def Ranking(column,details,compfunction, elements):
     """
     t1_start = process_time() #tiempo inicial
     copia = lt.subList(details,1,details["size"])
-    ss.shellSort(copia,compfunction,column)
+    lt.shellSort(copia,compfunction,column)
     iterator=it.newIterator(copia)
     ranking={}
     x=1
@@ -191,7 +191,7 @@ Requerimiento 4
 
 
 """
-def r4(actor_name, lc, lm):
+def conocerActor(actor_name, lc, lm):
     t1_start = process_time()
     n_pelis = []
     prom = 0
@@ -218,7 +218,7 @@ def r4(actor_name, lc, lm):
     print("Tiempo de ejecución ",t1_stop-t1_start," 1segundos")
     if len(n_pelis)!=0:
         return (len(n_pelis), n_pelis, round(prom/len(n_pelis),2), n_mayor)
-    return "El Actor no esta en  lista :c"
+    return "El Actor no está en la lista :c"
 """
 
 
@@ -226,7 +226,7 @@ Requerimiento 5
 
 
 """
-def peliculasporgenero(lst, criteria):
+def peliculasPorGenero(lst, criteria):
     t1_start = process_time()
     votos = 0
     cantidad = 0
@@ -252,7 +252,7 @@ def RankingGenero (genero, column, details, compfunction, elements):
         if genero.lower() in element_details.get("genres").lower() :
             lt.addLast(lista_genero,element_details)
     #Se ordena la lista por género
-    ss.shellSort(lista_genero,compfunction,column)
+    lt.shellSort(lista_genero,compfunction,column)
     #Se hace el ranking
     ranking={}
     iterator_listag=it.newIterator(lista_genero)
@@ -308,9 +308,9 @@ def main():
                     print("El Director", director.capitalize()," tiene "+ str(counter))
 
             elif int(inputs[0])==4: #opcion 4
-                    actor = input("Actor a consultar: ")
-                    r = r4(actor, casting , details)
-                    print( "El actor " + actor + " tiene " + str(r) 
+                actor = input("Actor a consultar: ")
+                r = r4(actor, casting , details)
+                print( "El actor " + actor + " tiene " + str(r) )
 
             elif int(inputs[0])==5: #opcion 5
                 criteria = input("Cual genero quieres ver: ")
@@ -335,7 +335,7 @@ def main():
                     cmpfunction= datos[1]
                     tipo=datos[2]
                     tipocalificacion=datos[3]
-                    elements=int(input("Dígite el número de películas que desea ver en el ranking: "))
+                    elements= int(input("Dígite el número de películas que desea ver en el ranking: "))
                     ranking_genero=RankingGenero(genero,column,details,cmpfunction,elements)
                     print("Las "+str(elements)+" "+ str(tipo) + " películas de " + genero.capitalize() + str(tipocalificacion)+ "son: \n" + str(ranking_genero))
 
