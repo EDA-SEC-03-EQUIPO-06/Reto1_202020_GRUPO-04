@@ -94,12 +94,12 @@ def loadCSVFile (file, cmpfunction):
 
 
 def loadMovies ():
-    lst = loadCSVFile("themoviesdb/MoviesCastingRaw-small.csv",compareRecordIds) 
+    lst = loadCSVFile("themoviesdb/AllMoviesCastingRaw.csv",compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
 
 def loadDetails():
-    lst = loadCSVFile("themoviesdb/SmallMoviesDetailsCleaned.csv",compareRecordIds) 
+    lst = loadCSVFile("themoviesdb/AllMoviesDetailsCleaned.csv",compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
 
@@ -230,15 +230,16 @@ def peliculasPorGenero(lst, criteria):
     votos = 0
     cantidad = 0
     peliculas = []
-    for i in range(1, lst["size"]+1):
-        movie = lt.getElement(lst,i)
+    i_file = it.newIterator(lst)
+    while it.hasNext(i_file):
+        movie = it.next(i_file)
         if criteria.lower() in movie["genres"].lower():
             votos += int(movie["vote_count"])
             cantidad += 1
             peliculas.append(movie["original_title"])
     promedio = round(votos/cantidad,2)
     t1_stop = process_time()
-    print("Tiempo de ejecución ",t1_stop-t1_start," 1segundos")
+    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     return (peliculas, cantidad, promedio)
 
 def RankingGenero (genero, column, details, compfunction, elements):
