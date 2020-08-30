@@ -33,6 +33,7 @@ import csv
 from ADT import list as lt
 from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
+from Sorting import shellsort as ss
 
 from time import process_time 
 
@@ -142,7 +143,7 @@ def Ranking(column,details,compfunction, elements):
     """
     t1_start = process_time() #tiempo inicial
     copia = lt.subList(details,1,details["size"])
-    lt.shellSort(copia,compfunction,column)
+    ss.shellSort(copia,compfunction,column)
     iterator=it.newIterator(copia)
     ranking={}
     x=1
@@ -190,8 +191,34 @@ Requerimiento 4
 
 
 """
-def conocerActor(parametros):
-    return 0
+def r4(actor_name, lc, lm):
+    t1_start = process_time()
+    n_pelis = []
+    prom = 0
+    director =[]
+    d2 = []
+    mayor = 0
+    n_mayor = " "
+    i_movies = it.newIterator(lm)
+    i_casting = it.newIterator(lc)
+    while it.hasNext(i_casting):
+        e_movies = it.next(i_movies)
+        e_casting = it.next(i_casting)
+        if (actor_name.lower() == e_casting["actor1_name"].lower()) or (actor_name.lower() == e_casting["actor2_name"].lower()) or (actor_name.lower() == e_casting["actor3_name"].lower()):
+            n_pelis.append(e_movies["title"])
+            prom += float(e_movies["vote_average"])
+            director.append(e_casting["director_name"])
+            if (e_casting["director_name"]) not in d2:
+                d2.append(e_casting["director_name"])
+    for i in d2:
+        if mayor< director.count(i):
+            mayor = director.count(i)
+            n_mayor = i
+    t1_stop = process_time()
+    print("Tiempo de ejecución ",t1_stop-t1_start," 1segundos")
+    if len(n_pelis)!=0:
+        return (len(n_pelis), n_pelis, round(prom/len(n_pelis),2), n_mayor)
+    return "El Actor no esta en  lista :c"
 """
 
 
@@ -200,6 +227,7 @@ Requerimiento 5
 
 """
 def peliculasporgenero(lst, criteria):
+    t1_start = process_time()
     votos = 0
     cantidad = 0
     peliculas = []
@@ -210,15 +238,10 @@ def peliculasporgenero(lst, criteria):
             cantidad += 1
             peliculas.append(movie["original_title"])
     promedio = round(votos/cantidad,2)
+    t1_stop = process_time()
+    print("Tiempo de ejecución ",t1_stop-t1_start," 1segundos")
     return (peliculas, cantidad, promedio)
 
-"""
-
-
-Requerimiento 5
-
-
-"""   
 def RankingGenero (genero, column, details, compfunction, elements):
     #Se crea una lista por género
     t1_start = process_time() #tiempo inicial
@@ -229,7 +252,7 @@ def RankingGenero (genero, column, details, compfunction, elements):
         if genero.lower() in element_details.get("genres").lower() :
             lt.addLast(lista_genero,element_details)
     #Se ordena la lista por género
-    lt.shellSort(lista_genero,compfunction,column)
+    ss.shellSort(lista_genero,compfunction,column)
     #Se hace el ranking
     ranking={}
     iterator_listag=it.newIterator(lista_genero)
@@ -285,7 +308,9 @@ def main():
                     print("El Director", director.capitalize()," tiene "+ str(counter))
 
             elif int(inputs[0])==4: #opcion 4
-                pass
+                    actor = input("Actor a consultar: ")
+                    r = r4(actor, casting , details)
+                    print( "El actor " + actor + " tiene " + str(r) 
 
             elif int(inputs[0])==5: #opcion 5
                 criteria = input("Cual genero quieres ver: ")
