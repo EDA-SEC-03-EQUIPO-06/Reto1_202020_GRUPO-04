@@ -196,19 +196,23 @@ def conocerActor(parametros):
 """
 
 
-Requerimiento 5
+Requerimiento 4
 
 
 """
-def pelicuasPorGenero(parametros):
-    return 0
-"""
+def peliculasporgenero(lst, criteria):
+    votos = 0
+    cantidad = 0
+    peliculas = []
+    for i in range(1, lst["size"]+1):
+        movie = lt.getElement(lst,i)
+        if criteria in movie["genres"]:
+            votos += int(movie["vote_count"])
+            cantidad += 1
+            peliculas.append(movie["original_title"])
+    promedio = round(votos/cantidad,2)
+    return (peliculas, cantidad, promedio)
 
-
-Requerimiento 6
-
-
-"""
 def RankingGenero (genero, column, details, compfunction, elements):
     #Se crea una lista por género
     t1_start = process_time() #tiempo inicial
@@ -278,7 +282,15 @@ def main():
                 pass
 
             elif int(inputs[0])==5: #opcion 5
-                pass
+                criteria = input("Cual genero quieres ver: ")
+                a = peliculasporgenero(details,criteria)
+                print("Hay ", a[1], " peliculas del genero ", criteria)
+                print("El promedio de cantidad de votos para este genero es de ", a[2])
+                print("Estas son algunas de las peliculas del genero:")
+                tenpelis = []
+                for i in range(10):
+                    tenpelis.append(a[0][i])
+                print(tenpelis)
 
             elif int(inputs[0])==6: #opcion 6
                 if details==None or details['size']==0: #obtener la longitud de la lista
