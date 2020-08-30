@@ -215,7 +215,7 @@ def conocerActor(actor_name, lc, lm):
             mayor = director.count(i)
             n_mayor = i
     t1_stop = process_time()
-    print("Tiempo de ejecución ",t1_stop-t1_start," 1segundos")
+    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     if len(n_pelis)!=0:
         return (len(n_pelis), n_pelis, round(prom/len(n_pelis),2), n_mayor)
     return "El Actor no está en la lista :c"
@@ -313,11 +313,11 @@ def main():
                 print( "El actor " + actor + " tiene " + str(r) )
 
             elif int(inputs[0])==5: #opcion 5
-                criteria = input("Cual genero quieres ver: ")
+                criteria = input("¿Cuál género quieres buscar?: ")
                 a = peliculasporgenero(details,criteria)
-                print("Hay ", a[1], " peliculas del genero ", criteria)
+                print("Hay ", a[1], " películas del genero ", criteria)
                 print("El promedio de cantidad de votos para este genero es de ", a[2])
-                print("Estas son algunas de las peliculas del genero:")
+                print("Estas son algunas de las películas del género:")
                 tenpelis = []
                 for i in range(10):
                     tenpelis.append(a[0][i])
