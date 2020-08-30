@@ -204,7 +204,7 @@ def conocerActor(actor_name, lc, lm):
     while it.hasNext(i_casting):
         e_movies = it.next(i_movies)
         e_casting = it.next(i_casting)
-        if (actor_name.lower() == e_casting["actor1_name"].lower()) or (actor_name.lower() == e_casting["actor2_name"].lower()) or (actor_name.lower() == e_casting["actor3_name"].lower()):
+        if (actor_name.lower() == e_casting["actor1_name"].lower()) or (actor_name.lower() == e_casting["actor2_name"].lower()) or (actor_name.lower() == e_casting["actor3_name"].lower()) or (actor_name.lower() == e_casting["actor4_name"].lower()) or (actor_name.lower() == e_casting["actor5_name"].lower()):
             n_pelis.append(e_movies["title"])
             prom += float(e_movies["vote_average"])
             director.append(e_casting["director_name"])
