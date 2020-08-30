@@ -338,11 +338,9 @@ def main():
                     datos=tipoRanking(tiporanking)
                     column=datos[0]
                     cmpfunction= datos[1]
-                    tipo=datos[2]
-                    tipocalificacion=datos[3]
                     elements= int(input("Dígite el número de películas que desea ver en el ranking: "))
                     ranking_genero=RankingGenero(genero,column,details,cmpfunction,elements)
-                    print("Las "+str(elements)+" "+ str(tipo) + " películas de " + genero.capitalize() + str(tipocalificacion)+ "son: \n" + str(ranking_genero))
+                    print("Las "+str(elements)+" "+ str(datos[2]) + " películas de " + genero.capitalize() + str(datos[3])+ "son: \n" + str(ranking_genero))
 
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
