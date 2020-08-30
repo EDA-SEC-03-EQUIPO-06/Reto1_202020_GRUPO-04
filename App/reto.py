@@ -33,7 +33,6 @@ import csv
 from ADT import list as lt
 from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
-from Sorting import shellsort as ss
 
 from time import process_time 
 
@@ -143,7 +142,7 @@ def Ranking(column,details,compfunction, elements):
     """
     t1_start = process_time() #tiempo inicial
     copia = lt.subList(details,1,details["size"])
-    ss.shellSort(copia,compfunction,column)
+    lt.shellSort(copia,compfunction,column)
     iterator=it.newIterator(copia)
     ranking={}
     x=1
@@ -219,7 +218,7 @@ def RankingGenero (genero, column, details, compfunction, elements):
         if genero.lower() in element_details.get("genres").lower() :
             lt.addLast(lista_genero,element_details)
     #Se ordena la lista por género
-    ss.shellSort(lista_genero,compfunction,column)
+    lt.shellSort(lista_genero,compfunction,column)
     #Se hace el ranking
     ranking={}
     iterator_listag=it.newIterator(lista_genero)
