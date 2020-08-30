@@ -310,7 +310,12 @@ def main():
             elif int(inputs[0])==4: #opcion 4
                 actor = input("Actor a consultar: ")
                 r = conocerActor(actor, casting , details)
-                print( "El actor " + actor + " tiene " + str(r) )
+                print("El actor " + actor.capitalize() + " tiene: " + str(r[0])+" películas")
+                print("la lista de sus películas es: \n"+str(r[1]))
+                print("El promedio de calificación de sus películas es: "+str(r[2]))
+                print("El nombre del director con más colaboraciones es: "+str(r[3]))
+
+
 
             elif int(inputs[0])==5: #opcion 5
                 criteria = input("¿Cuál género quieres buscar?: ")
