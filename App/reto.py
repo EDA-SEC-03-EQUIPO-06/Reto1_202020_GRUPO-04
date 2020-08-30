@@ -195,7 +195,7 @@ def conocerActor(parametros):
 """
 
 
-Requerimiento 4
+Requerimiento 5
 
 
 """
@@ -212,6 +212,13 @@ def peliculasporgenero(lst, criteria):
     promedio = round(votos/cantidad,2)
     return (peliculas, cantidad, promedio)
 
+"""
+
+
+Requerimiento 5
+
+
+"""   
 def RankingGenero (genero, column, details, compfunction, elements):
     #Se crea una lista por género
     t1_start = process_time() #tiempo inicial
