@@ -232,7 +232,7 @@ def peliculasPorGenero(lst, criteria):
     peliculas = []
     for i in range(1, lst["size"]+1):
         movie = lt.getElement(lst,i)
-        if criteria in movie["genres"]:
+        if criteria.lower() in movie["genres"].lower():
             votos += int(movie["vote_count"])
             cantidad += 1
             peliculas.append(movie["original_title"])
